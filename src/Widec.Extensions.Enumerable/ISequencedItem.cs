@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace Widec.Extensions.Enumerable
 {
-    public class Class1
+    public interface ISequencedItem<T>
     {
-        public Class1()
-        {
-        }
+        T Item { get; }
+        int Sequence { get; }
     }
 }
