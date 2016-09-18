@@ -1,5 +1,13 @@
 {
-  "version": "1.0.0-*",
+  "version": "0.1.0-*",
+  "authors": ["Wim De Cleen"],
+  "packOptions":
+  {
+	"owners": ["Wim De Cleen"],
+	"licenseUrl":"https://opensource.org/licenses/MIT",
+	"projectUrl":"https://github.com/widec/Widec.Extensions.Enumerable",
+	"tags": [ "Extensions", "IEnumerable" ]
+  },
 
   "dependencies": {
     "NETStandard.Library": "1.6.0"
