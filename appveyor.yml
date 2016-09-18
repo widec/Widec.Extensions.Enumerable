@@ -16,7 +16,7 @@ deploy:
 - provider: NuGet
   server: https://www.myget.org/F/widec/api/v2/package
   api_key:
-    secure: zKeQZmIv9PaozHQRJmrlRHN+jMCI64Uvzmb/vwePdXFR5CUNEHalnZdOCg0vrh8t
+    secure: BADYsTqKarKemQHDOKWHXzGJOBONzp6uIlZSW5kHXtEWs1l56tWTRGRKQddUrENz
   skip_symbols: true
   on:
     branch: master
