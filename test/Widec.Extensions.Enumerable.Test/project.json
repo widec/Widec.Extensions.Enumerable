@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "xunit": "2.2.0-beta2-build3300"
+  },
+  "buildOptions": {
+    "warningsAsErrors": true
+  },
+  "testRunner": "xunit",
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "version": "1.0.0-*",
+          "type": "platform"
+        },
+        "Widec.Extensions.Enumerable": "0.1.0-*"
+      }
+    }
+  }
+}
