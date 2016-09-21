@@ -8,9 +8,6 @@ nuget:
   disable_publish_on_pr: true
 build_script:
 - ps: .\Build.ps1
-test:
-  assemblies:
-    - '**\*.Test.dll'
 artifacts:
 - path: .\artifacts\**\*.nupkg
   name: NuGet
