@@ -258,7 +258,6 @@ namespace Widec.Extensions.Enumerable
         }
 
         #endregion
-
     }
 }
 
