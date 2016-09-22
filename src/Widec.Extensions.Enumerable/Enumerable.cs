@@ -258,6 +258,37 @@ namespace Widec.Extensions.Enumerable
         }
 
         #endregion
+
+        #region Padding
+
+        public static IEnumerable<TSource> PadRight<TSource>(this IEnumerable<TSource> source, int totalWidth, Func<int, TSource> paddingItem)
+        {
+            int counter = 0;
+            foreach (var item in source)
+            {
+                yield return item;
+                counter++;
+            }
+            for (int i = counter; i < totalWidth; i++)
+            {
+                yield return paddingItem(i);
+            }
+        }
+
+        public static IEnumerable<TSource> PadLeft<TSource>(this IEnumerable<TSource> source, int totalWidth, Func<int, TSource> paddingItem)
+        {
+            var list = source.ToArray();
+            for (int i = 0; i < totalWidth - list.Length; i++)
+            {
+                yield return paddingItem(i);
+            }
+            foreach (var item in list)
+            {
+                yield return item;
+            }
+        }
+
+        #endregion
     }
 }
 

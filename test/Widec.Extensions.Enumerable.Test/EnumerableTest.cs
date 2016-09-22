@@ -136,5 +136,93 @@ namespace Widec.Extensions.Enumerable.Test
         }
 
         #endregion
+
+        #region Padding
+
+        [Fact()]
+        public void PadRight_EmptyItems()
+        {
+            var list = new int[] { 0 };
+            var padList = list.PadRight(3, i => i).ToArray();
+            Assert.Equal(0, padList[0]);
+            Assert.Equal(1, padList[1]);
+            Assert.Equal(2, padList[2]);
+        }
+
+        [Fact()]
+        public void PadRight_EmptySource()
+        {
+            var list = new int[] { };
+            var padList = list.PadRight(3, i => i).ToArray();
+            Assert.Equal(3, padList.Length);
+        }
+
+        [Fact()]
+        public void PadRight_LengthGreaterThanNumber()
+        {
+            var list = new int[] { 0 };
+            var padList = list.PadRight(3, i => i).ToArray();
+            Assert.Equal(3, padList.Length);
+        }
+
+        [Fact()]
+        public void PadRight_LengthEqualToNumber()
+        {
+            var list = new int[] { 0, 1, 2 };
+            var padList = list.PadRight(3, i => i).ToArray();
+            Assert.Equal(3, padList.Length);
+        }
+
+        [Fact()]
+        public void PadRight_LengthSmallerThanNumber()
+        {
+            var list = new int[] { 0, 1, 2 };
+            var padList = list.PadRight(2, i => i).ToArray();
+            Assert.Equal(3, padList.Length);
+        }
+
+        [Fact()]
+        public void PadLeft_EmptyItems()
+        {
+            var list = new int[] { 2 };
+            var padList = list.PadLeft(3, i => i).ToArray();
+            Assert.Equal(0, padList[0]);
+            Assert.Equal(1, padList[1]);
+            Assert.Equal(2, padList[2]);
+        }
+
+        [Fact()]
+        public void PadLeft_EmptySource()
+        {
+            var list = new int[] { };
+            var padList = list.PadLeft(3, i => i).ToArray();
+            Assert.Equal(3, padList.Length);
+        }
+
+        [Fact()]
+        public void PadLeft_LengthGreaterThanNumber()
+        {
+            var list = new int[] { 0 };
+            var padList = list.PadLeft(3, i => i).ToArray();
+            Assert.Equal(3, padList.Length);
+        }
+
+        [Fact()]
+        public void PadLeft_LengthEqualToNumber()
+        {
+            var list = new int[] { 0, 1, 2 };
+            var padList = list.PadLeft(3, i => i).ToArray();
+            Assert.Equal(3, padList.Length);
+        }
+
+        [Fact()]
+        public void PadLeft_LengthSmallerThanNumber()
+        {
+            var list = new int[] { 0, 1, 2 };
+            var padList = list.PadLeft(2, i => i).ToArray();
+            Assert.Equal(3, padList.Length);
+        }
+
+        #endregion
     }
 }
