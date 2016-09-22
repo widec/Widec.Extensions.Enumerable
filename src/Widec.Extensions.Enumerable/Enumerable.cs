@@ -134,6 +134,8 @@ namespace Widec.Extensions.Enumerable
 
         #endregion
 
+        #region Crudonize
+
         /// <summary>
         /// Crudonize the difference between 2 enumerables
         /// </summary>
@@ -188,6 +190,10 @@ namespace Widec.Extensions.Enumerable
             creates.ForEach(m => create(m));
         }
 
+        #endregion
+
+        #region UnSplit
+
         public static string UnSplit(this IEnumerable<string> items, string seperator)
         {
             StringBuilder sb = new StringBuilder();
@@ -206,6 +212,10 @@ namespace Widec.Extensions.Enumerable
             return sb.ToString();
         }
 
+        #endregion
+
+        #region Sequence
+
         public static IEnumerable<ISequencedItem<T>> Sequence<T>(this IEnumerable<T> items)
         {
             return Sequence(items, 0);
@@ -215,6 +225,40 @@ namespace Widec.Extensions.Enumerable
         {
             return GetEnumerable(() => new SequencedEnumerator<T>(items.GetEnumerator(), startIndex));
         }
+
+        #endregion
+
+        #region Median
+
+        public static int Median<T>(this IEnumerable<T> list, Func<T, int> selector)
+        {
+            var orderedItems = list.Select(selector)
+                .OrderBy(n => n)
+                .ToArray();
+
+            if (orderedItems.Length == 0)
+            {
+                return 0;
+            }
+            if (orderedItems.Length == 1)
+            {
+                return orderedItems[0];
+            }
+
+            int center = orderedItems.Length / 2;
+
+            if (orderedItems.Length % 2 == 0)
+            {
+                return (orderedItems[center - 1] + orderedItems[center]) / 2;
+            }
+            else
+            {
+                return orderedItems[center];
+            }
+        }
+
+        #endregion
+
     }
 }
 

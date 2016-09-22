@@ -28,6 +28,8 @@ namespace Widec.Extensions.Enumerable.Test
 {
     public class EnumerableTest
     {
+        #region Crudonize
+
         [Theory()]
         [InlineData("A", "", "A", "", "")]
         [InlineData("A", "A", "", "A", "")]
@@ -72,5 +74,67 @@ namespace Widec.Extensions.Enumerable.Test
         {
             Assert.Equal(expected, template.Split(',').Sequence(startSequence).Select(si => string.Format("{0}{1}", si.Item, si.Sequence)).UnSplit(","));
         }
+
+        #endregion
+
+        #region Median
+
+        [Fact()]
+        public void MedianTest_EvenNumberOfItemsSelector()
+        {
+            var list = new string[] { "1", "4", "5", "8" };
+            Assert.Equal(4, list.Median(n => int.Parse(n)));
+        }
+
+        [Fact()]
+        public void MedianTest_EvenNumberOfItems()
+        {
+            var list = new int[] { 1, 4, 5, 8 };
+            Assert.Equal(4, list.Median(n=>n));
+        }
+
+        [Fact()]
+        public void MedianTest_OddNumberOfItems()
+        {
+            var list = new int[] { 1, 4, 5, 8, 9 };
+            Assert.Equal(5, list.Median(n => n));
+        }
+
+        [Fact()]
+        public void MedianTest_EvenNumberOfItems_Order()
+        {
+            var list = new int[] { 1, 8, 5, 4 };
+            Assert.Equal(4, list.Median(n => n));
+        }
+
+        [Fact()]
+        public void MedianTest_OddNumberOfItems_Order()
+        {
+            var list = new int[] { 4, 9, 8, 5, 1 };
+            Assert.Equal(5, list.Median(n => n));
+        }
+
+        [Fact()]
+        public void MedianTest_SingleItem()
+        {
+            var list = new int[] { 1 };
+            Assert.Equal(1, list.Median(n => n));
+        }
+
+        [Fact()]
+        public void MedianTest_EmptyList()
+        {
+            var list = new int[] {};
+            Assert.Equal(0, list.Median(n => n));
+        }
+
+        [Fact()]
+        public void MedianTest_TwoItemList()
+        {
+            var list = new int[] { 1, 3 };
+            Assert.Equal(2, list.Median(n => n));
+        }
+
+        #endregion
     }
 }
