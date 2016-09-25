@@ -224,5 +224,24 @@ namespace Widec.Extensions.Enumerable.Test
         }
 
         #endregion
+
+        #region ExceptWith
+        [Theory()]
+        [InlineData("A,B,C,D", "B", "A,C,D")]
+        [InlineData("A,B,C,D", "A,B,C,D", "")]
+        [InlineData("A,B,C,D", "C", "A,B,D")]
+        [InlineData("A,B,C,D", "D", "A,B,C")]
+        [InlineData("A,B,C,D", "A", "B,C,D")]
+        [InlineData("", "B", "")]
+        [InlineData("A,B,C,D", "X", "A,B,C,D")]
+        [InlineData("A,B,C,D", "A,B", "C,D")]
+        [InlineData("A,B,C,D", "", "A,B,C,D")]
+        public void ExceptWith(string source, string other, string expected)
+        {
+            var result = source.Split(',').ExceptWith(other.Split(','), a => a).OrderBy(a => a).UnSplit(",");
+            Assert.Equal(expected, result);
+        }
+
+        #endregion
     }
 }

@@ -29,102 +29,6 @@ namespace Widec.Extensions.Enumerable
 {
     public static class Enumerable
     {
-        #region SequencedItem
-
-        class SequencedItem<T> : ISequencedItem<T>
-        {
-            public SequencedItem(T item, int sequence)
-            {
-                Item = item;
-                Sequence = sequence;
-            }
-
-            public T Item { get; private set; }
-            public int Sequence { get; private set; }
-        }
-
-        #endregion
-
-        #region ClosureEnumerable
-
-        class ClosureEnumerable<T> : IEnumerable<T>
-        {
-            Func<IEnumerator<T>> m_GetEnumerator;
-
-            public ClosureEnumerable(Func<IEnumerator<T>> getEnumerator)
-            {
-                m_GetEnumerator = getEnumerator;
-            }
-
-            public IEnumerator<T> GetEnumerator()
-            {
-                return m_GetEnumerator();
-            }
-
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                return m_GetEnumerator();
-            }
-        }
-
-        #endregion
-
-        #region SequencedEnumerator
-
-        class SequencedEnumerator<T> : IEnumerator<ISequencedItem<T>>
-        {
-            IEnumerator<T> m_Original;
-            ISequencedItem<T> m_Current;
-            int m_Sequence;
-            int m_StartSequence;
-
-            public SequencedEnumerator(IEnumerator<T> original, int startSequence)
-            {
-                m_Original = original;
-                m_StartSequence = startSequence;
-                m_Sequence = startSequence;
-                m_Current = null;
-            }
-
-            public ISequencedItem<T> Current
-            {
-                get
-                {
-                    return m_Current;
-                }
-            }
-
-            public void Dispose()
-            {
-                m_Original.Dispose();
-            }
-
-            object System.Collections.IEnumerator.Current
-            {
-                get { return m_Current; }
-            }
-
-            public bool MoveNext()
-            {
-                var result = m_Original.MoveNext();
-                if (result)
-                {
-                    m_Current = new SequencedItem<T>(m_Original.Current, m_Sequence);
-                    m_Sequence++;
-                }
-                return result;
-            }
-
-            public void Reset()
-            {
-                m_Original.Reset();
-                m_Sequence = m_StartSequence;
-                m_Current = null;
-            }
-        }
-
-        #endregion
-
         #region Support
 
         static IEnumerable<T> GetEnumerable<T>(Func<IEnumerator<T>> getEnumerator)
@@ -286,6 +190,18 @@ namespace Widec.Extensions.Enumerable
             {
                 yield return item;
             }
+        }
+
+        #endregion
+
+        #region ExceptWith
+
+        public static IEnumerable<TSource> ExceptWith<TSource, TOther>(
+            this IEnumerable<TSource> source,
+            IEnumerable<TOther> other,
+            Func<TSource, TOther> convert)
+        {
+            return new ClosureEnumerable<TSource>(() => new ExceptWithEnumerator<TSource, TOther>(source, other, convert));
         }
 
         #endregion
