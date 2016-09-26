@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using Widec.Extensions.Enumerable;
-
+using System;
 
 namespace Widec.Extensions.Enumerable.Test
 {
@@ -240,6 +240,40 @@ namespace Widec.Extensions.Enumerable.Test
         {
             var result = source.Split(',').ExceptWith(other.Split(','), a => a).OrderBy(a => a).UnSplit(",");
             Assert.Equal(expected, result);
+        }
+
+        #endregion
+
+        #region Buffer
+
+        [Theory()]
+        [InlineData("A,B,C,D", 1, "A;B;C;D")]
+        [InlineData("A,B,C,D", 2, "A,B;C,D")]
+        [InlineData("A,B,C,D", 3, "A,B,C;D")]
+        [InlineData("A,B,C,D", 4, "A,B,C,D")]
+        [InlineData("A,B,C,D", 5, "A,B,C,D")]
+        public void Buffer(string source, int size, string expected)
+        {
+            var result = source.Split(',').Buffer(size).Select(buffer => buffer.UnSplit(",")).UnSplit(";");
+            Assert.Equal(expected, result);
+        }
+
+        [Fact()]
+        public void Buffer_Size_Zero()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>("size", () => new int[] { 1, 2, 3 }.Buffer(0).ToArray());
+        }
+
+        [Fact()]
+        public void Buffer_Size_Negative()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>("size", () => new int[] { 1, 2, 3 }.Buffer(-1).ToArray());
+        }
+
+        [Fact()]
+        public void Buffer_Source_Null()
+        {
+            Assert.Throws<ArgumentNullException>("source", () => Enumerable.Buffer((IEnumerable<int>)null, 15).ToArray());
         }
 
         #endregion

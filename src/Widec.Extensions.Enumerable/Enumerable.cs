@@ -205,6 +205,44 @@ namespace Widec.Extensions.Enumerable
         }
 
         #endregion
+
+        #region Buffer
+
+        public static IEnumerable<IEnumerable<T>> Buffer<T>(this IEnumerable<T> source, int size)
+        {
+            ExceptionHelper.CheckArgumentNotNull(source, "source");
+            ExceptionHelper.CheckArgumentPositiveNotZero(size, "size");
+
+            var enumerator = source.GetEnumerator();
+            var buffer = new T[size];
+            var isFinished = false;
+
+            while (!isFinished)
+            {
+                for (int i = 0; i < size; i++)
+                {
+                    if (enumerator.MoveNext())
+                    {
+                        buffer[i] = enumerator.Current;
+                    }
+                    else
+                    { 
+                        if (i != 0)
+                        {
+                            yield return buffer.Take(i).ToArray();
+                        }
+                        isFinished = true;
+                        break;
+                    }
+                }
+                if (!isFinished)
+                {
+                    yield return buffer.ToArray();
+                }
+            }
+        }
+
+        #endregion
     }
 }
 
