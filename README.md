@@ -8,15 +8,16 @@
 This assembly contains a number of extensions on IEnumerable<T>. The package is available on NuGet as [Widec.Extensions.Enumerable](https://www.nuget.org/packages/Widec.Extensions.Enumerable). 
 All extensions follow the deffered execution logic of IEnumerable<T>. The following explains the basic usage of the extensions.  
 
----
 ## UnSplit
----
+
 
 The counterpart of the Split method on String. Concatenates the items in the IEnumerable<T> into a string seperated with a specified seperator
 
 ### Syntax
-```C#
-public static string UnSplit(this IEnumerable<string> source, string seperator)
+```c#
+public static string UnSplit(
+    this IEnumerable<string> source, 
+    string seperator)
 ```
 
 ### Parameters
@@ -32,9 +33,8 @@ var result = new string[]{"A","B","C","D"}.UnSplit(",");
 ```
 
 
----
 ## Crudonize
----
+
 
 Compares two IEnumerable instances based on a compare method and invokes create, update and delete actions.
 
@@ -63,18 +63,24 @@ create | The method called when an item exists in the master list but not in the
 update | The method called when an item exists in the master list and in the slave list. 
 delete | The method calle when an item exists in the slave list but not in the masterlist. 
 
----
+
 ## Padding
----
+
 Pads an IEnumerable left or right with items.
 
 ### Syntax
 ```c#
-public static IEnumerable<TSource> PadRight<TSource>(this IEnumerable<TSource> source, int totalWidth, Func<int, TSource> paddingItem)
+public static IEnumerable<TSource> PadRight<TSource>(
+    this IEnumerable<TSource> source, 
+    int totalWidth, 
+    Func<int, TSource> paddingItem)
 ```
 
 ```c#
-public static IEnumerable<TSource> PadLeft<TSource>(this IEnumerable<TSource> source, int totalWidth, Func<int, TSource> paddingItem)
+public static IEnumerable<TSource> PadLeft<TSource>(
+    this IEnumerable<TSource> source, 
+    int totalWidth, 
+    Func<int, TSource> paddingItem)
 ```
 
 ### Parameters
@@ -84,15 +90,17 @@ source | The source collection that is to be padded.
 totalWidth | The total number of items returned in the resulting IEnumerable<T>
 paddingItem | The closure that returns the item used to pad the source IEnumerable<T>, the integer parameter indicates the index in the collection
 
----
+
 ## Sequence
----
+
 
 Sequence the items in an IEnumerable<T> with a sequencenumber starting from a startIndex. Returns an IEnumerable<ISequencedItem<T>>
 
 ### Syntax
 ```c#
-public static IEnumerable<ISequencedItem<T>> Sequence<T>(this IEnumerable<T> source, int startIndex)
+public static IEnumerable<ISequencedItem<T>> Sequence<T>(
+    this IEnumerable<T> source, 
+    int startIndex)
 ```
 
 ###Remarks
@@ -116,7 +124,10 @@ startIndex | The index to start sequencing.
 ###Example
 
 ```c#
-var result = new string[]{"A","B","C","D"}.Sequence(10).Select(si => string.Format("{0}-{1}", si.Sequence, si.Item)).UnSplit(",");
+var result = new string[]{"A","B","C","D"}.
+    Sequence(10).
+    Select(si => string.Format("{0}-{1}", si.Sequence, si.Item)).
+    UnSplit(",");
 
 // result contains "10-A,11-B,12-C,13-D"
 ```
