@@ -21,10 +21,10 @@ public static string UnSplit(
 ```
 
 ### Parameters
-name | description
-- | -
-source | The source collection which items are to be concatenated.
-seperator | The string that will be used as seperator between items.
+|name | description|
+|---|---|
+|source | The source collection which items are to be concatenated.|
+|seperator | The string that will be used as seperator between items.|
 
 ###Example
 ```csharp
@@ -54,14 +54,14 @@ For every item that is in the masterList and not in the slaveList the **create**
 for every item that is in the slaveList and not in the masterList the **delete** action is called.
 
 ### Parameters
-name | description
-- | -
-masterList | The IEnumerable<TMaster> used as master in the compare 
-slaveList | The IEnumerable<TSlave> used as slave in the compare 
-compare | The compare method used to compare items of type TMaster with items of type TSlave 
-create | The method called when an item exists in the master list but not in the slave list.
-update | The method called when an item exists in the master list and in the slave list. 
-delete | The method calle when an item exists in the slave list but not in the masterlist. 
+|name | description|
+|---|---|
+|masterList | The IEnumerable<TMaster> used as master in the compare |
+|slaveList | The IEnumerable<TSlave> used as slave in the compare |
+|compare | The compare method used to compare items of type TMaster with items of type TSlave |
+|create | The method called when an item exists in the master list but not in the slave list.|
+|update | The method called when an item exists in the master list and in the slave list.| 
+|delete | The method calle when an item exists in the slave list but not in the masterlist. |
 
 
 ## Padding
@@ -84,11 +84,11 @@ public static IEnumerable<TSource> PadLeft<TSource>(
 ```
 
 ### Parameters
-name | description
-- | -
-source | The source collection that is to be padded. 
-totalWidth | The total number of items returned in the resulting IEnumerable<T>
-paddingItem | The closure that returns the item used to pad the source IEnumerable<T>, the integer parameter indicates the index in the collection
+|name | description|
+|---|---|
+|source | The source collection that is to be padded.| 
+|totalWidth | The total number of items returned in the resulting IEnumerable<T>|
+|paddingItem | The closure that returns the item used to pad the source IEnumerable<T>, the integer parameter indicates the index in the collection|
 
 
 ## Sequence
@@ -116,10 +116,10 @@ public interface ISequencedItem<T>
 ```
 
 ### Parameters
-name | description
-- | -
-source | The source collection which items are to be concatenated.
-startIndex | The index to start sequencing.
+|name | description|
+|---|---|
+|source | The source collection which items are to be concatenated.|
+|startIndex | The index to start sequencing.|
 
 ###Example
 
