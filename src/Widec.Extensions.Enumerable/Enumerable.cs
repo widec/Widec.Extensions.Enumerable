@@ -98,11 +98,11 @@ namespace Widec.Extensions.Enumerable
 
         #region UnSplit
 
-        public static string UnSplit(this IEnumerable<string> items, string seperator)
+        public static string UnSplit(this IEnumerable<string> source, string seperator)
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach (var item in items)
+            foreach (var item in source)
             {
                 if (sb.Length == 0)
                 {
@@ -120,23 +120,23 @@ namespace Widec.Extensions.Enumerable
 
         #region Sequence
 
-        public static IEnumerable<ISequencedItem<T>> Sequence<T>(this IEnumerable<T> items)
+        public static IEnumerable<ISequencedItem<T>> Sequence<T>(this IEnumerable<T> source)
         {
-            return Sequence(items, 0);
+            return Sequence(source, 0);
         }
 
-        public static IEnumerable<ISequencedItem<T>> Sequence<T>(this IEnumerable<T> items, int startIndex)
+        public static IEnumerable<ISequencedItem<T>> Sequence<T>(this IEnumerable<T> source, int startIndex)
         {
-            return GetEnumerable(() => new SequencedEnumerator<T>(items.GetEnumerator(), startIndex));
+            return GetEnumerable(() => new SequencedEnumerator<T>(source.GetEnumerator(), startIndex));
         }
 
         #endregion
 
         #region Median
 
-        public static int Median<T>(this IEnumerable<T> list, Func<T, int> selector)
+        public static int Median<T>(this IEnumerable<T> source, Func<T, int> selector)
         {
-            var orderedItems = list.Select(selector)
+            var orderedItems = source.Select(selector)
                 .OrderBy(n => n)
                 .ToArray();
 
