@@ -16,6 +16,8 @@ The following extensions are available
 |[Crudonize](documentation/Crudonize.md)|Compares two IEnumerable instances based on a compare method and invokes create, update and delete actions.|
 |[Padding](documentation/Padding.md)|Pads an IEnumerable left or right with items.|
 |[Sequence](documentation/Sequence.md)|Sequence the items in an IEnumerable<T>|
-
+|[Buffer](documentation/Buffer.md)|Takes an IEnumerable<T> and breaks it down into an IEnumerable<IEnumerable<T>> of specified size.|
+|[Median](documentation/Median.md)|Takes the median of the IEnumerable<T>|
+|[ExceptWith](documentation/ExceptWith.md)|Filters an IEnumerable<T> with another IEnumerable<Q>|
 
 
