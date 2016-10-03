@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0-*",
+  "version": "0.3.0-*",
   "authors": ["Wim De Cleen"],
   "packOptions":
   {
@@ -8,14 +8,14 @@
 	"projectUrl":"https://github.com/widec/Widec.Extensions.Enumerable",
 	"tags": [ "Extensions", "IEnumerable" ]
   },
-
-  "dependencies": {
-    "NETStandard.Library": "1.6.0"
-  },
-
   "frameworks": {
     "netstandard1.6": {
-      "imports": "dnxcore50"
-    }
+      "imports": "dnxcore50",
+      "dependencies": {
+        "NETStandard.Library": "1.6.0"
+      }
+    },
+    "net452": {},
+    "net461": {}
   }
 }
