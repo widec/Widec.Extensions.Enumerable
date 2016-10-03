@@ -277,5 +277,62 @@ namespace Widec.Extensions.Enumerable.Test
         }
 
         #endregion
+
+        #region Unsplit
+
+        [Theory()]
+        [InlineData("A,B,C","A,B,C")]
+        [InlineData("A", "A")]
+        [InlineData("", "")]
+        public void Unsplit(string source, string expected)
+        {
+            var result = source.Split(',').UnSplit(",");
+            Assert.Equal(expected, result);
+        }
+
+        [Fact()]
+        public void Unsplit_Source_Null()
+        {
+            Assert.Throws<ArgumentNullException>("source", () => Enumerable.UnSplit((IEnumerable<string>)null, ",").ToArray());
+        }
+
+        [Fact()]
+        public void Unsplit_Seperator_Null()
+        {
+            Assert.Throws<ArgumentNullException>("seperator", () => Enumerable.UnSplit(new string[] { "A", "B" }, null).ToArray());
+        }
+
+        #endregion
+
+        #region Sequence
+
+        [Theory()]
+        [InlineData("A,B,C","0-A,1-B,2-C")]
+        [InlineData("A", "0-A")]
+        [InlineData("", "")]
+        public void Sequence(string source, string expected)
+        {
+            var result = source.Split(',').Where(s => !string.IsNullOrEmpty(s)).Sequence().Select(si => string.Format("{0}-{1}", si.Sequence, si.Item)).UnSplit(",");
+            Assert.Equal(expected, result);  
+        }
+
+        [Theory()]
+        [InlineData("A,B,C", 0, "0-A,1-B,2-C")]
+        [InlineData("A,B,C", -5, "-5-A,-4-B,-3-C")]
+        [InlineData("A,B,C", 2, "2-A,3-B,4-C")]
+        [InlineData("",10, "")]
+        public void Sequence_Offset(string source, int startIndex, string expected)
+        {
+            var result = source.Split(',').Where(s => !string.IsNullOrEmpty(s)).Sequence(startIndex).Select(si => string.Format("{0}-{1}", si.Sequence, si.Item)).UnSplit(",");
+            Assert.Equal(expected, result);
+        }
+
+        [Fact()]
+        public void Sequence_Source_Null()
+        {
+            Assert.Throws<ArgumentNullException>("source", () => Enumerable.Sequence((IEnumerable<string>)null).ToArray());
+        }
+
+        #endregion
     }
 }

@@ -100,6 +100,8 @@ namespace Widec.Extensions.Enumerable
 
         public static string UnSplit(this IEnumerable<string> source, string seperator)
         {
+            ExceptionHelper.CheckArgumentNotNull(source, "source");
+            ExceptionHelper.CheckArgumentNotNull(seperator, "seperator");
             StringBuilder sb = new StringBuilder();
 
             foreach (var item in source)
@@ -127,6 +129,7 @@ namespace Widec.Extensions.Enumerable
 
         public static IEnumerable<ISequencedItem<T>> Sequence<T>(this IEnumerable<T> source, int startIndex)
         {
+            ExceptionHelper.CheckArgumentNotNull(source, "source");
             return GetEnumerable(() => new SequencedEnumerator<T>(source.GetEnumerator(), startIndex));
         }
 
