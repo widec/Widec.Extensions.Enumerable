@@ -28,6 +28,35 @@ namespace Widec.Extensions.Enumerable.Test
 {
     public class EnumerableTest
     {
+        #region Support
+
+        class ConvertTest
+        {
+            public string Value { get; set; }
+
+            public override string ToString()
+            {
+                return Value;
+            }
+
+            public override int GetHashCode()
+            {
+                return Value.GetHashCode();
+            }
+        }
+
+        public IEnumerable<string> GetEnumerable(string pattern)
+        {
+            return pattern.Split(',').Where(s => !string.IsNullOrEmpty(s));
+        }
+
+        public IEnumerable<T> GetEnumerable<T>(string pattern, Func<string, T> convert)
+        {
+            return pattern.Split(',').Where(s => !string.IsNullOrEmpty(s)).Select(convert);
+        }
+
+        #endregion
+
         #region Crudonize
 
         [Theory()]
@@ -331,6 +360,58 @@ namespace Widec.Extensions.Enumerable.Test
         public void Sequence_Source_Null()
         {
             Assert.Throws<ArgumentNullException>("source", () => Enumerable.Sequence((IEnumerable<string>)null).ToArray());
+        }
+
+        #endregion
+
+        #region ToUpper
+
+        [Theory()]
+        [InlineData("","")]
+        [InlineData("a,B", "A,B")]
+        [InlineData("a,b,c", "A,B,C")]
+        public void ToUpper_String(string source, string expected)
+        {
+            var result = GetEnumerable(source).ToUpper().UnSplit(",");
+            Assert.Equal(expected, result);          
+        }
+
+        [Theory()]
+        [InlineData("", "")]
+        [InlineData("a,b", "A,B")]
+        [InlineData("a,B,c", "A,B,C")]
+        public void ToUpper_T(string source, string expected)
+        {
+            var result = GetEnumerable(source, s => new ConvertTest(){ Value = s }).ToUpper().UnSplit(",");
+            Assert.Equal(expected, result);
+        }
+
+        [Theory()]
+        [InlineData("", "")]
+        [InlineData("a,b", "A,B")]
+        [InlineData("a,B,c", "A,B,C")]
+        public void ToUpper_T_Convert(string source, string expected)
+        {
+            var result = GetEnumerable(source, s => new ConvertTest() { Value = s }).ToUpper(o => o.Value).UnSplit(",");
+            Assert.Equal(expected, result);
+        }
+
+        [Fact()]
+        public void ToUpper_String_Source_Null()
+        {
+            Assert.Throws<ArgumentNullException>("source", () => Enumerable.ToUpper((IEnumerable<string>)null).ToArray());
+        }
+
+        [Fact()]
+        public void ToUpper_T_Source_Null()
+        {
+            Assert.Throws<ArgumentNullException>("source", () => Enumerable.ToUpper((IEnumerable<int>)null).ToArray());
+        }
+
+        [Fact()]
+        public void ToUpper_Convert_Null()
+        {
+            Assert.Throws<ArgumentNullException>("convert", () => Enumerable.ToUpper(new string[] { "A", "B" }, null).ToArray());
         }
 
         #endregion

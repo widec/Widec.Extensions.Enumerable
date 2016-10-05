@@ -246,6 +246,39 @@ namespace Widec.Extensions.Enumerable
         }
 
         #endregion
+
+        #region ToUpper
+
+        public static IEnumerable<string> ToUpper<T>(this IEnumerable<T> source)
+        {
+            ExceptionHelper.CheckArgumentNotNull(source, "source");
+            foreach (var item in source)
+            {
+                yield return item.ToString().ToUpper();
+            }    
+        }
+
+        public static IEnumerable<string> ToUpper(this IEnumerable<string> source)
+        {
+            ExceptionHelper.CheckArgumentNotNull(source, "source");
+            foreach (var item in source)
+            {
+                yield return item.ToUpper();
+            }
+        }
+
+        public static IEnumerable<string> ToUpper<T>(this IEnumerable<T> source, Func<T,string> convert)
+        {
+            ExceptionHelper.CheckArgumentNotNull(source, "source");
+            ExceptionHelper.CheckArgumentNotNull(convert, "convert");
+            foreach (var item in source)
+            {
+                yield return convert(item).ToUpper();
+            }
+        }
+
+        #endregion
+
     }
 }
 
