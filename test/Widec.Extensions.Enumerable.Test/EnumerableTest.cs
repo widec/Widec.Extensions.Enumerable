@@ -1,4 +1,4 @@
-﻿//Copyright (c) 2014 Wim De Cleen
+﻿//Copyright (c) 2016 Wim De Cleen
 
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -412,6 +412,58 @@ namespace Widec.Extensions.Enumerable.Test
         public void ToUpper_Convert_Null()
         {
             Assert.Throws<ArgumentNullException>("convert", () => Enumerable.ToUpper(new string[] { "A", "B" }, null).ToArray());
+        }
+
+        #endregion
+
+        #region ToLower
+
+        [Theory()]
+        [InlineData("", "")]
+        [InlineData("a,B", "a,b")]
+        [InlineData("A,B,C", "a,b,c")]
+        public void ToLower_String(string source, string expected)
+        {
+            var result = GetEnumerable(source).ToLower().UnSplit(",");
+            Assert.Equal(expected, result);
+        }
+
+        [Theory()]
+        [InlineData("", "")]
+        [InlineData("A,B", "a,b")]
+        [InlineData("A,b,C", "a,b,c")]
+        public void ToLower_T(string source, string expected)
+        {
+            var result = GetEnumerable(source, s => new ConvertTest() { Value = s }).ToLower().UnSplit(",");
+            Assert.Equal(expected, result);
+        }
+
+        [Theory()]
+        [InlineData("", "")]
+        [InlineData("A,B", "a,b")]
+        [InlineData("A,b,C", "a,b,c")]
+        public void ToLower_T_Convert(string source, string expected)
+        {
+            var result = GetEnumerable(source, s => new ConvertTest() { Value = s }).ToLower(o => o.Value).UnSplit(",");
+            Assert.Equal(expected, result);
+        }
+
+        [Fact()]
+        public void ToLower_String_Source_Null()
+        {
+            Assert.Throws<ArgumentNullException>("source", () => Enumerable.ToLower((IEnumerable<string>)null).ToArray());
+        }
+
+        [Fact()]
+        public void ToLower_T_Source_Null()
+        {
+            Assert.Throws<ArgumentNullException>("source", () => Enumerable.ToLower((IEnumerable<int>)null).ToArray());
+        }
+
+        [Fact()]
+        public void ToLower_Convert_Null()
+        {
+            Assert.Throws<ArgumentNullException>("convert", () => Enumerable.ToLower(new string[] { "A", "B" }, null).ToArray());
         }
 
         #endregion

@@ -1,4 +1,4 @@
-﻿//Copyright (c) 2014 Wim De Cleen
+﻿//Copyright (c) 2016 Wim De Cleen
 
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -252,33 +252,46 @@ namespace Widec.Extensions.Enumerable
         public static IEnumerable<string> ToUpper<T>(this IEnumerable<T> source)
         {
             ExceptionHelper.CheckArgumentNotNull(source, "source");
-            foreach (var item in source)
-            {
-                yield return item.ToString().ToUpper();
-            }    
+            return source.Select(item => item.ToString().ToUpper());  
         }
 
         public static IEnumerable<string> ToUpper(this IEnumerable<string> source)
         {
             ExceptionHelper.CheckArgumentNotNull(source, "source");
-            foreach (var item in source)
-            {
-                yield return item.ToUpper();
-            }
+            return source.Select(item => item.ToUpper());
         }
 
         public static IEnumerable<string> ToUpper<T>(this IEnumerable<T> source, Func<T,string> convert)
         {
             ExceptionHelper.CheckArgumentNotNull(source, "source");
             ExceptionHelper.CheckArgumentNotNull(convert, "convert");
-            foreach (var item in source)
-            {
-                yield return convert(item).ToUpper();
-            }
+            return source.Select(item => convert(item).ToUpper());
         }
 
         #endregion
 
+        #region ToLower
+
+        public static IEnumerable<string> ToLower<T>(this IEnumerable<T> source)
+        {
+            ExceptionHelper.CheckArgumentNotNull(source, "source");
+            return source.Select(item => item.ToString().ToLower());
+        }
+
+        public static IEnumerable<string> ToLower(this IEnumerable<string> source)
+        {
+            ExceptionHelper.CheckArgumentNotNull(source, "source");
+            return source.Select(item => item.ToLower());
+        }
+
+        public static IEnumerable<string> ToLower<T>(this IEnumerable<T> source, Func<T, string> convert)
+        {
+            ExceptionHelper.CheckArgumentNotNull(source, "source");
+            ExceptionHelper.CheckArgumentNotNull(convert, "convert");
+            return source.Select(item => convert(item).ToLower());
+        }
+
+        #endregion
     }
 }
 

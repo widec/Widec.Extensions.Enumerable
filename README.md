@@ -20,4 +20,6 @@ The following extensions are available
 |[Median](documentation/Median.md)|Takes the median of the IEnumerable<T>|
 |[ExceptWith](documentation/ExceptWith.md)|Filters an IEnumerable<T> with another IEnumerable<Q>|
 |[ToUpper](documentation/ToUpper.md)|Executes a ToUpper on an IEnumerable<T>|
+|[ToLower](documentation/ToLower.md)|Executes a ToLower on an IEnumerable<T>|
+
 
