@@ -467,5 +467,26 @@ namespace Widec.Extensions.Enumerable.Test
         }
 
         #endregion
+
+        #region Shuffle
+
+        [Fact()]
+        public void Shuffle()
+        {
+            // We can only test if all items that go in come out
+            var result = new string[] { "A", "B", "C" }.Shuffle().UnSplit("");
+            Assert.Contains("A", result);
+            Assert.Contains("B", result);
+            Assert.Contains("C", result);
+            Assert.Equal(3, result.Length);
+        }
+
+        [Fact()]
+        public void Shuffle_Source_Null()
+        {
+            Assert.Throws<ArgumentNullException>("source", () => Enumerable.Shuffle((IEnumerable<int>)null).ToArray());
+        }
+
+        #endregion
     }
 }

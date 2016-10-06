@@ -31,6 +31,8 @@ namespace Widec.Extensions.Enumerable
     {
         #region Support
 
+        static Randomizer _Randomizer = new Randomizer();
+
         static IEnumerable<T> GetEnumerable<T>(Func<IEnumerator<T>> getEnumerator)
         {
             return new ClosureEnumerable<T>(getEnumerator);
@@ -292,6 +294,26 @@ namespace Widec.Extensions.Enumerable
         }
 
         #endregion
+
+        #region Shuffle
+
+        // This method is threadsafe because of Randomizer
+        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
+        {
+            // Basic Fisher–Yates shuffle
+            var shuffle = source.ToArray();
+            for (int i = 0; i < shuffle.Length; i++)
+            {
+                var j = _Randomizer.Next(shuffle.Length);
+                var swap = shuffle[i];
+                shuffle[i] = shuffle[j];
+                shuffle[j] = swap;
+            }
+            return shuffle;    
+        }
+
+        #endregion
+
     }
 }
 

@@ -21,5 +21,6 @@ The following extensions are available
 |[ExceptWith](documentation/ExceptWith.md)|Filters an IEnumerable<T> with another IEnumerable<Q>|
 |[ToUpper](documentation/ToUpper.md)|Executes a ToUpper on an IEnumerable<T>|
 |[ToLower](documentation/ToLower.md)|Executes a ToLower on an IEnumerable<T>|
+|[Shuffle](documentation/Shuffle.md)|Shuffles an IEnumerable<T>|
 
 
