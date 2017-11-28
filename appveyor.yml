@@ -16,14 +16,14 @@ deploy:
 - provider: NuGet
   server: https://www.myget.org/F/widec/api/v2/package
   api_key:
-    secure:
+    secure: BADYsTqKarKemQHDOKWHXzGJOBONzp6uIlZSW5kHXtEWs1l56tWTRGRKQddUrENz
   skip_symbols: true
   on:
     branch: master
 - provider: NuGet
   name: production
   api_key:
-    secure:
+    secure: uswUtBM1in8EX//QnTpszmlAkkhMYtpeQ9EMiGqu1tTAejMkG0hXdUlnLP5yvhjr
   on:
     branch: master
     appveyor_repo_tag: true
